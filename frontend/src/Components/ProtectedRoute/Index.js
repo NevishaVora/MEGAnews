@@ -1,19 +1,21 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ adminOnly }) => {
-    const userId = localStorage.getItem("userId"); // Check if user is logged in
-    const admintoken = localStorage.getItem("admintoken"); // Check admin token
+  const location = useLocation();
+  const { user } = useSelector((state) => state.auth); // Redux se user ka data le rahe hain
 
-    if (!userId) {
-        return <Navigate to="/" replace />;
-    }
+  // Agar user logged-in nahi hai, toh home page pe redirect karo
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
 
-    // Agar adminOnly true hai aur adminToken nahi mila, toh redirect
-    if (adminOnly && !admintoken) {
-        return <Navigate to="/" replace />;
-    }
+  // Agar route admin-only hai aur user admin nahi hai, toh bhi home page pe redirect karo
+  if (adminOnly && user.role !== "admin") {
+    return <Navigate to="/" replace />;
+  }
 
-    return <Outlet />;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

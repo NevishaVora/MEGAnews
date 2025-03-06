@@ -1,7 +1,6 @@
 const { default: mongoose } = require('mongoose');
 
 const adminSchema = mongoose.Schema({
-    // users: [{
     username: {
         type: String,
         required: true,
@@ -27,7 +26,6 @@ const adminSchema = mongoose.Schema({
         default: true,
         required: true,
     },
-    // }]
 }, {
     timestamps: true,
 });

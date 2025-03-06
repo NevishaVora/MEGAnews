@@ -8,7 +8,7 @@ const postRoute = require('./routes/post.routes')
 const sendPostRoute = require('./routes/sendPost.routes')
 const savePostRoute = require('./routes/savePost.routes');
 const adminRoute = require('./routes/admin.routes');
-
+const footercontactRoute = require('./routes/footercontact.routes');
 
 
 const app = express();
@@ -36,6 +36,7 @@ app.use('/api/post', postRoute);
 app.use('/api/sendPost', sendPostRoute);
 app.use('/api/savedPost', savePostRoute);
 app.use('/api/admin', adminRoute);
+app.use('/api/footercontact', footercontactRoute);
 
 app.use('/uploads', express.static('uploads'));
 app.use('/categoryimg', express.static('categoryimg'));

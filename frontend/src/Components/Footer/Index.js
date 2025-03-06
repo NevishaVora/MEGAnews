@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { useDispatch, useSelector } from 'react-redux';
+import { addfooterContact } from '../redux/Action/footercontact.action';
 
 const Footer = () => {
+    const dispatch = useDispatch();
+    const userData = useSelector((state) => state.footercontact);
+    console.log("userData", userData);
+    const [formData, setFormData] = useState({
+        email: '',
+    });
+    console.log('formData', formData);
+
+    const handleForm = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleEmailSubmit = ()=>{
+        dispatch(addfooterContact(formData))
+    }
     return (
         <div>
             <div className='flex justify-between pt-5 mb-[30px]'>
@@ -22,10 +43,16 @@ const Footer = () => {
                                 <input
                                     type='email'
                                     placeholder='Write your Email..'
-                                    className='p-3 border rounded-lg mt-2 w-full' // Padding and border radius added
+                                    className='p-3 border rounded-lg mt-2 w-full'
+                                    name='email'
+                                    value={formData.email}
+                                    onChange={handleForm}
 
                                 />
-                                <EmailIcon className='text-gray-600 ml-[-30px] mt-[22px]' />
+                                <EmailIcon
+                                    className='text-gray-600 ml-[-30px] mt-[22px] cursor-pointer'
+                                    onClick={handleEmailSubmit}
+                                />
                             </div>
 
                         </div>
@@ -73,7 +100,7 @@ const Footer = () => {
                     <div className='w-[43%]'>
                         <div className="flex items-start mt-[30px]">
                             <div className="h-[15px] w-[6px] bg-red-600 rounded-md mt-1"></div>
-                            <span className="text-[20px] text-black mt-[-5px] ml-2">New Comments</span>
+                            <span className="text-[20px] text-black mt-[-5px] ml-2">New detail</span>
                         </div>
                         <div className='bg-gray-100 p-3 mt-4 rounded-lg'>
                             <h4 className='text-[14px] text-black font-semibold'>Ellsmartx</h4>

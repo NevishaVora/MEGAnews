@@ -1,7 +1,5 @@
 const { admin } = require("../models/admin.models.js");
 const jwt = require("jsonwebtoken");
-
-
 const createAdmin = async (req, res) => {
     const { username, email, password } = req.body;
     try {
